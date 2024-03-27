@@ -50,4 +50,6 @@ WHERE ENAME like '__R%';
 -- - **LIKE 사용**
 -- 1. **EMP테이블에서 사번, 사원명, 입사일, 입사일로부터 40년 되는 날짜 조회**
 -- 2. **EMP테이블에서 입사일로부터 38년 이상 근무한 직원의 정보 조회**
+SELECT * FROM EMP
+WHERE MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12 >=38;
 -- 3. **오늘 날짜에서 년도만 추출**
