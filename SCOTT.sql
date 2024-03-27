@@ -151,3 +151,56 @@ FROM emp;
 SELECT SYSDATE,
 ADD_MONTHS(SYSDATE, 6)
 FROM Dual;
+
+-- 돌아오는 요일(NEXT_DAY), 달의 마지막 날짜를 구하는 LAST_DAY 오류발생
+SELECT SYSDATE,
+    NEXT_DAY(SYSDATE, '월요일'),
+    LAST_DAY(SYSDATE) 
+    FROM duel;
+
+-- 날짜 정보 추출 함수
+SELECT EXTRACT(YEAR FROM DATE '2024-03-26')
+FROM dual;
+SELECT * FROM EMP
+WHERE EXTRACT(MONTH FROM HIREDATE) = 12;
+
+-- 자료형을 변환하는 형 변환 함수, NUMBER와 문자 자료형 연산 시 자동으로 NUMBER 타입으로 변환
+SELECT empno, ename, empno + '500'
+FROM EMP
+WHERE ename = 'FORD';
+
+-- 날짜, 숫자를 문자로 변환하는 TO_CHAR 함수
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD  HH24:MI:SS') AS "현재날짜시간"
+FROM DUAL;
+
+SELECT SAL,
+     TO_CHAR(SAL, '$999,999') AS SAL_$,
+     TO_CHAR(SAL, 'L999,999') AS SAL_L,
+     TO_CHAR(SAL, '999,999.00') AS SAL_1,
+     TO_CHAR(SAL, '000,999,999.00') AS SAL_2,
+     TO_CHAR(SAL, '000999999.99') AS SAL_3,
+     TO_CHAR(SAL, '999,999,00') AS SAL_4
+FROM EMP;
+
+SELECT '1300' -'1200' FROM dual; -- 자동 형변환
+SELECT TO_NUMBER('1300') - '1000' FROM dual;
+
+-- TO_DATE : 문자열로 명시된 날짜로 변환하는 함수
+SELECT TO_DATE('22/08/20','YY/MM/DD')
+from dual;
+
+-- NULL 처리 함수 : NULL이란 특정열의 행에 데이터 값이 지정되지 않으면 데이터 값이 NULL이 됨
+-- NULL은 0이나 공백과는 다른 의미, 논리연산과 비교연산 불가
+-- NVL : 입력한 데이터가 NULL인경우, 두번째 매개변수로 값으로 반환 됨
+SELECT EMPNO, ENAME, sal, comm, sal+comm,
+    nvl(comm, 0), -- comm 값이 null이면 0으로 반환
+    sal + nvl(comm,0)
+    from emp;
+
+-- NVL2 : 입력 데이터가 NULL이 아니면 두번째 매개변수 값으로 반환 NULL이면 3번째 매개변수 값으로 반환
+SELECT EMPNO, ENAME, COMM,
+    NVL2(COMM, 'O','X'), 
+    NVL2(COMM, sal*12+comm, sal*12) AS "연봉"
+    FROM EMP;
+-- NULLIF : 두값이 동일하면 NULL 반환, 동일하지 않으면 첫번째 값 반환
+SELECT NULLIF(10, 10), NULLIF('A', 'B') FROM dual;
