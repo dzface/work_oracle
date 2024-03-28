@@ -26,10 +26,10 @@ FROM emp
 where sal > 1600  and SAL < 3000;
 
 -- 6.입사일이 81년 이외에 입사한 사원의 모든 정보 출력
--- VSC 에서만 오류 발생
+-- VSC 에서만 오류 발생 >> 날짜 형식 DD/MON/YY 로 바꿀 것
 SELECT *
 FROM EMP
-where HIREDATE not BETWEEN '1981/01/01' and '1981/12/31';
+where HIREDATE not BETWEEN '01/JAN/81' and '01/DEC/81';
 
 -- 7.직업이 MANAGER와 SALESMAN인 사원의 모든 정보를 출력
 SELECT *
