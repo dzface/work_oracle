@@ -353,3 +353,24 @@ UNION
 SELECT EMPNO, ENAME, JOB
 FROM EMP
 WHERE JOB = 'MANAGER'
+
+-- DECODE : 주어진 데이터 값이 조건 값과 일치하는 값을 출력하고
+-- 일치하지 않으면 기본값 출력
+
+SELECT empno, ename, job, -- 오류발생
+decode(job,
+'MANAGER', sal * 1.1,
+'SALESMAN', sal * 1.05,
+'ANALYST', sal, 
+sal * 1.03) AS "급여 인상"
+FROM emp;
+
+-- CASE 문:
+SELECT EMPNO, ENAME, JOB, SAL,
+CASE JOB
+WHEN 'MANAGER' THEN sal * 1.1
+WHEN 'SALESMAN' THEN SAL *1.05
+WHEN 'ANALYST' THEN SAL
+ELSE SAL *1.03
+END as "급여 인상"
+FROM emp;
